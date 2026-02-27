@@ -11,11 +11,12 @@ const quizzes = {
     "Xue Level (4 Levels)": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"]
 };
 
+
 let currentAnswers = [];
 let score = 0;
 let isGameOver = false;
 
-// Create the menu buttons on load
+// Create menu
 const menuDiv = document.getElementById('quiz-buttons');
 Object.keys(quizzes).forEach(name => {
     const btn = document.createElement('button');
@@ -35,6 +36,7 @@ function startQuiz(name) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('current-quiz-title').innerText = name;
     
+    // Reset message
     const msg = document.getElementById('message-display');
     msg.innerText = "";
     msg.className = "";
@@ -64,13 +66,12 @@ function giveUp() {
     document.getElementById('guess-input').disabled = true;
     
     const msg = document.getElementById('message-display');
-    msg.innerText = "Study these missed symptoms!";
+    msg.innerText = "Keep studying these missed symptoms!";
     msg.className = "give-up-text";
 
     const boxes = document.getElementsByClassName('answer-box');
     currentAnswers.forEach((ans, i) => {
         if (!boxes[i].classList.contains('revealed')) {
-            // Display the first synonym if they give up
             boxes[i].innerText = ans.split('|')[0];
             boxes[i].classList.add('missed');
         }
@@ -94,7 +95,6 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
     if (index !== -1) {
         const boxes = document.getElementsByClassName('answer-box');
         if (!boxes[index].classList.contains('revealed')) {
-            // Reveal the primary name of the symptom
             boxes[index].innerText = currentAnswers[index].split('|')[0]; 
             boxes[index].classList.add('revealed');
             score++;
