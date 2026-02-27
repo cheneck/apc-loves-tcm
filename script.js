@@ -1,7 +1,7 @@
 const quizzes = {
-    "Shao Yang (6 Stages)": ["bitter taste", "dry throat", "blurry vision", "alternating chills and fever", "fullness in chest", "irritability", "nausea", "wiry pulse"],
+    "Shao Yang (6 Stages)": ["bitter taste|bitter mouth", "dry throat", "blurry vision|blurred vision", "alternating chills and fever", "fullness in chest|chest distension", "irritability", "nausea", "wiry pulse"],
     "Tai Yang (6 Stages)": ["aversion to cold", "headache", "stiff neck", "floating pulse", "fever"],
-    "Yang Ming (6 Stages)": ["four bigs", "high fever", "profuse sweating", "extreme thirst", "big pulse", "constipation", "abdominal pain"],
+    "Yang Ming (6 Stages)": ["big fever|high fever", "big sweat|profuse sweating", "big thirst", "big pulse|flooding pulse|surging pulse", "constipation", "abdominal pain"],
     "Tai Yin (6 Stages)": ["abdominal fullness", "diarrhea", "vomiting", "no thirst", "pale tongue", "weak pulse"],
     "Shao Yin (6 Stages)": ["extreme fatigue", "desire to sleep", "cold limbs", "faint pulse", "diarrhea with undigested food"],
     "Jue Yin (6 Stages)": ["hunger without desire to eat", "surging qi to heart", "pain in heart", "vomiting roundworms", "cold limbs"],
@@ -47,13 +47,12 @@ function startQuiz(name) {
 
 function giveUp() {
     isGameOver = true;
-    const input = document.getElementById('guess-input');
-    input.disabled = true;
-    
+    document.getElementById('guess-input').disabled = true;
     const boxes = document.getElementsByClassName('answer-box');
     currentAnswers.forEach((ans, i) => {
         if (!boxes[i].classList.contains('revealed')) {
-            boxes[i].innerText = ans;
+            // Display the first synonym if they give up
+            boxes[i].innerText = ans.split('|')[0];
             boxes[i].classList.add('missed');
         }
     });
@@ -66,14 +65,19 @@ function updateScore() {
 
 document.getElementById('guess-input').addEventListener('input', (e) => {
     if (isGameOver) return;
-    
     const guess = e.target.value.toLowerCase().trim();
-    const index = currentAnswers.findIndex(a => a.toLowerCase() === guess);
+    
+    // Logic for multiple-answer/synonym matching
+    const index = currentAnswers.findIndex(item => {
+        const synonyms = item.toLowerCase().split('|');
+        return synonyms.includes(guess);
+    });
     
     if (index !== -1) {
         const boxes = document.getElementsByClassName('answer-box');
         if (!boxes[index].classList.contains('revealed')) {
-            boxes[index].innerText = currentAnswers[index];
+            // Reveal the exact synonym they typed (or the first one)
+            boxes[index].innerText = guess; 
             boxes[index].classList.add('revealed');
             score++;
             updateScore();
@@ -81,7 +85,7 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
             
             if (score === currentAnswers.length) {
                 isGameOver = true;
-                alert("Great job! You got them all!");
+                alert("Perfect! You've mastered this pattern.");
             }
         }
     }
