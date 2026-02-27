@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angela's TCM Quiz Factory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TCM Mastery Quiz</h1>
+        <div id="menu">
+            <p>Select a Quiz:</p>
+            <div id="quiz-buttons"></div>
+        </div>
+
+        <div id="quiz-area" class="hidden">
+            <h2 id="current-quiz-title"></h2>
+            <div class="stats">
+                <span id="score">0</span> / <span id="total">0</span>
+            </div>
+            <input type="text" id="guess-input" placeholder="Type a symptom..." autofocus>
+            <div id="answer-grid"></div>
+            <button onclick="showMenu()">Back to Menu</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
