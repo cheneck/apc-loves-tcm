@@ -15,6 +15,15 @@ let currentAnswers = [];
 let score = 0;
 let isGameOver = false;
 
+// Create the menu buttons on load
+const menuDiv = document.getElementById('quiz-buttons');
+Object.keys(quizzes).forEach(name => {
+    const btn = document.createElement('button');
+    btn.innerText = name;
+    btn.onclick = () => startQuiz(name);
+    menuDiv.appendChild(btn);
+});
+
 function showMenu() {
     document.getElementById('menu').classList.remove('hidden');
     document.getElementById('quiz-area').classList.add('hidden');
@@ -26,7 +35,6 @@ function startQuiz(name) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('current-quiz-title').innerText = name;
     
-    // Clear previous messages
     const msg = document.getElementById('message-display');
     msg.innerText = "";
     msg.className = "";
@@ -51,6 +59,7 @@ function startQuiz(name) {
 }
 
 function giveUp() {
+    if (isGameOver) return;
     isGameOver = true;
     document.getElementById('guess-input').disabled = true;
     
@@ -61,19 +70,13 @@ function giveUp() {
     const boxes = document.getElementsByClassName('answer-box');
     currentAnswers.forEach((ans, i) => {
         if (!boxes[i].classList.contains('revealed')) {
+            // Display the first synonym if they give up
             boxes[i].innerText = ans.split('|')[0];
             boxes[i].classList.add('missed');
         }
     });
 }
 
-// Inside your event listener, replace the alert() with this:
-if (score === currentAnswers.length) {
-    isGameOver = true;
-    const msg = document.getElementById('message-display');
-    msg.innerText = "Mastery Achieved! Perfect Score.";
-    msg.className = "success-text";
-}
 function updateScore() {
     document.getElementById('score').innerText = score;
     document.getElementById('total').innerText = currentAnswers.length;
@@ -83,7 +86,6 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
     if (isGameOver) return;
     const guess = e.target.value.toLowerCase().trim();
     
-    // Logic for multiple-answer/synonym matching
     const index = currentAnswers.findIndex(item => {
         const synonyms = item.toLowerCase().split('|');
         return synonyms.includes(guess);
@@ -92,8 +94,8 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
     if (index !== -1) {
         const boxes = document.getElementsByClassName('answer-box');
         if (!boxes[index].classList.contains('revealed')) {
-            // Reveal the exact synonym they typed (or the first one)
-            boxes[index].innerText = guess; 
+            // Reveal the primary name of the symptom
+            boxes[index].innerText = currentAnswers[index].split('|')[0]; 
             boxes[index].classList.add('revealed');
             score++;
             updateScore();
@@ -101,16 +103,10 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
             
             if (score === currentAnswers.length) {
                 isGameOver = true;
-                alert("Perfect! You've mastered this pattern.");
+                const msg = document.getElementById('message-display');
+                msg.innerText = "Mastery Achieved! Perfect Score.";
+                msg.className = "success-text";
             }
         }
     }
-});
-
-const menuDiv = document.getElementById('quiz-buttons');
-Object.keys(quizzes).forEach(name => {
-    const btn = document.createElement('button');
-    btn.innerText = name;
-    btn.onclick = () => startQuiz(name);
-    menuDiv.appendChild(btn);
 });
