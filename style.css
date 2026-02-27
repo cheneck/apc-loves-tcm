@@ -15,3 +15,13 @@ button:hover { background: #0056b3; }
     font-style: italic;
 }
 .controls { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+#message-display {
+    height: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.success-text { color: #28a745; }
+.give-up-text { color: #dc3545; }
