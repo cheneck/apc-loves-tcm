@@ -13,6 +13,7 @@ const quizzes = {
 
 let currentAnswers = [];
 let score = 0;
+let isGameOver = false;
 
 function showMenu() {
     document.getElementById('menu').classList.remove('hidden');
@@ -20,6 +21,7 @@ function showMenu() {
 }
 
 function startQuiz(name) {
+    isGameOver = false;
     document.getElementById('menu').classList.add('hidden');
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('current-quiz-title').innerText = name;
@@ -27,6 +29,11 @@ function startQuiz(name) {
     currentAnswers = quizzes[name];
     score = 0;
     updateScore();
+    
+    const input = document.getElementById('guess-input');
+    input.value = '';
+    input.disabled = false;
+    input.focus();
     
     const grid = document.getElementById('answer-grid');
     grid.innerHTML = '';
@@ -36,9 +43,20 @@ function startQuiz(name) {
         div.innerText = '???';
         grid.appendChild(div);
     });
+}
+
+function giveUp() {
+    isGameOver = true;
+    const input = document.getElementById('guess-input');
+    input.disabled = true;
     
-    document.getElementById('guess-input').value = '';
-    document.getElementById('guess-input').focus();
+    const boxes = document.getElementsByClassName('answer-box');
+    currentAnswers.forEach((ans, i) => {
+        if (!boxes[i].classList.contains('revealed')) {
+            boxes[i].innerText = ans;
+            boxes[i].classList.add('missed');
+        }
+    });
 }
 
 function updateScore() {
@@ -47,6 +65,8 @@ function updateScore() {
 }
 
 document.getElementById('guess-input').addEventListener('input', (e) => {
+    if (isGameOver) return;
+    
     const guess = e.target.value.toLowerCase().trim();
     const index = currentAnswers.findIndex(a => a.toLowerCase() === guess);
     
@@ -57,12 +77,16 @@ document.getElementById('guess-input').addEventListener('input', (e) => {
             boxes[index].classList.add('revealed');
             score++;
             updateScore();
-            e.target.value = ''; // Clear input for next guess
+            e.target.value = '';
+            
+            if (score === currentAnswers.length) {
+                isGameOver = true;
+                alert("Great job! You got them all!");
+            }
         }
     }
 });
 
-// Build the menu buttons
 const menuDiv = document.getElementById('quiz-buttons');
 Object.keys(quizzes).forEach(name => {
     const btn = document.createElement('button');
