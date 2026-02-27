@@ -8,7 +8,12 @@ const quizzes = {
     "Wei Level (4 Levels)": ["fever", "slight chills", "sore throat", "cough", "headache", "floating rapid pulse"],
     "Qi Level (4 Levels)": ["high fever", "intense thirst", "sweating", "red tongue with yellow coat", "forceful pulse"],
     "Ying Level (4 Levels)": ["fever worse at night", "restlessness", "delirium", "crimson tongue", "faint skin rashes"],
-    "Xue Level (4 Levels)": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"]
+    "Xue Level (4 Levels)": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"],
+    "Upper Jiao": ["fever", "aversion to cold", "headache", "sore throat", "floating rapid pulse"],
+    "Middle Jiao": ["high fever", "abdominal fullness", "constipation|hard stool", "yellow tongue coating"],
+    "Lower Jiao": ["low grade fever", "night sweats", "five center heat", "dry mouth", "deep crimson tongue"],
+    "Seven Emotional Factors": ["joy", "fear", "sadness", "anger", "worry", "fright", "grief"),
+    "Six Exogenous Factors": ["wind", "cold", "heat", "dryness", "damp", "summer heat"]
 };
 
 
