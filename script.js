@@ -12,7 +12,7 @@ const quizzes = {
     "Upper Jiao": ["fever", "aversion to cold", "headache", "sore throat", "floating rapid pulse"],
     "Middle Jiao": ["high fever", "abdominal fullness", "constipation|hard stool", "yellow tongue coating"],
     "Lower Jiao": ["low grade fever", "night sweats", "five center heat", "dry mouth", "deep crimson tongue"],
-    "Seven Emotional Factors": ["joy", "fear", "sadness", "anger", "worry", "fright", "grief"),
+    "Seven Emotional Factors": ["joy", "fear", "sadness", "anger", "worry", "fright", "grief"],
     "Six Exogenous Factors": ["wind", "cold", "heat", "dryness", "damp", "summer heat"]
 };
 
