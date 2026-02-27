@@ -1,7 +1,7 @@
 const quizzes = {
     "Shao Yang (6 Stages)": ["bitter taste", "dry throat", "blurry vision", "alternating chills and fever", "fullness in chest", "irritability", "nausea", "wiry pulse"],
     "Tai Yang (6 Stages)": ["aversion to cold", "headache", "stiff neck", "floating pulse", "fever"],
-    "Yang Ming (6 Stages)": ["high fever", "profuse sweating", "extreme thirst", "big pulse", "constipation", "abdominal pain"],
+    "Yang Ming (6 Stages)": ["four bigs", "high fever", "profuse sweating", "extreme thirst", "big pulse", "constipation", "abdominal pain"],
     "Tai Yin (6 Stages)": ["abdominal fullness", "diarrhea", "vomiting", "no thirst", "pale tongue", "weak pulse"],
     "Shao Yin (6 Stages)": ["extreme fatigue", "desire to sleep", "cold limbs", "faint pulse", "diarrhea with undigested food"],
     "Jue Yin (6 Stages)": ["hunger without desire to eat", "surging qi to heart", "pain in heart", "vomiting roundworms", "cold limbs"],
