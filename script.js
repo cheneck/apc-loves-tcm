@@ -9,8 +9,6 @@ const quizzes = {
     "Qi Level (4 Levels)": ["high fever", "intense thirst", "sweating", "red tongue with yellow coat", "forceful pulse"],
     "Ying Level (4 Levels)": ["fever worse at night", "restlessness", "delirium", "crimson tongue", "faint skin rashes"],
     "Xue Level (4 Levels)": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"]
-    "Six Exogenous Factors" : ["wind", "cold", "damp", "dryness", "summer heat", "fire"]
-    "Seven Emotional Factors" : ["anger", "joy", "sadness", "worry", "fear", "grief", "fright"]
 };
 
 
