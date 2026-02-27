@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angela's TCM Quiz Factory</title>
+    <title>TCM Quiz Factory</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,7 +21,10 @@
             </div>
             <input type="text" id="guess-input" placeholder="Type a symptom..." autofocus>
             <div id="answer-grid"></div>
-            <button onclick="showMenu()">Back to Menu</button>
+            <div class="controls">
+                <button id="give-up-btn" onclick="giveUp()" style="background: #dc3545;">Give Up / Reveal</button>
+                <button onclick="showMenu()">Back to Menu</button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
