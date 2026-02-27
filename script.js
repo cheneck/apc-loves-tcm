@@ -26,6 +26,11 @@ function startQuiz(name) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('current-quiz-title').innerText = name;
     
+    // Clear previous messages
+    const msg = document.getElementById('message-display');
+    msg.innerText = "";
+    msg.className = "";
+
     currentAnswers = quizzes[name];
     score = 0;
     updateScore();
@@ -48,16 +53,27 @@ function startQuiz(name) {
 function giveUp() {
     isGameOver = true;
     document.getElementById('guess-input').disabled = true;
+    
+    const msg = document.getElementById('message-display');
+    msg.innerText = "Study these missed symptoms!";
+    msg.className = "give-up-text";
+
     const boxes = document.getElementsByClassName('answer-box');
     currentAnswers.forEach((ans, i) => {
         if (!boxes[i].classList.contains('revealed')) {
-            // Display the first synonym if they give up
             boxes[i].innerText = ans.split('|')[0];
             boxes[i].classList.add('missed');
         }
     });
 }
 
+// Inside your event listener, replace the alert() with this:
+if (score === currentAnswers.length) {
+    isGameOver = true;
+    const msg = document.getElementById('message-display');
+    msg.innerText = "Mastery Achieved! Perfect Score.";
+    msg.className = "success-text";
+}
 function updateScore() {
     document.getElementById('score').innerText = score;
     document.getElementById('total').innerText = currentAnswers.length;
