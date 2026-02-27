@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCM Quiz Factory</title>
+    <title>Angela's TCM Quiz Factory</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>TCM Mastery Quiz</h1>
+        
         <div id="menu">
-            <p>Select a Quiz:</p>
+            <p>Select a study category:</p>
             <div id="quiz-buttons"></div>
         </div>
 
@@ -19,17 +20,13 @@
             <div class="stats">
                 <span id="score">0</span> / <span id="total">0</span>
             </div>
-        <div id="quiz-area" class="hidden">
-            <h2 id="current-quiz-title"></h2>
-            <div class="stats">
-                <span id="score">0</span> / <span id="total">0</span>
-        </div>
-    
-    <div id="message-display"></div>
-    <input type="text" id="guess-input" placeholder="Type a symptom..." autofocus>
-    ...
-            <input type="text" id="guess-input" placeholder="Type a symptom..." autofocus>
+            
+            <div id="message-display"></div>
+
+            <input type="text" id="guess-input" placeholder="Type a symptom..." autocomplete="off" autofocus>
+            
             <div id="answer-grid"></div>
+            
             <div class="controls">
                 <button id="give-up-btn" onclick="giveUp()" style="background: #dc3545;">Give Up / Reveal</button>
                 <button onclick="showMenu()">Back to Menu</button>
