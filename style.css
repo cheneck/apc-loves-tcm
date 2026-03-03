@@ -17,3 +17,12 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; margin: 5px; font-size: 1rem; }
 button:hover { background: #0056b3; }
 #quiz-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+#quiz-buttons h3 {
+    width: 100%;       /* Forces the header to take up the whole row */
+    text-align: left;  /* Aligns the category name to the left */
+    margin-top: 30px;  /* Adds space above the category */
+    padding-bottom: 5px;
+    border-bottom: 2px solid #eee; /* Adds a nice underline */
+    color: #444;       /* A professional dark grey */
+    font-size: 1.3rem;
+}
