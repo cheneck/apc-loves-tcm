@@ -1,33 +1,59 @@
-const quizzes = {
-    "Shao Yang (6 Stages)": ["bitter taste|bitter mouth", "dry throat", "blurry vision|blurred vision", "alternating chills and fever", "fullness in chest|chest distension", "irritability", "nausea", "wiry pulse"],
-    "Tai Yang (6 Stages)": ["aversion to cold", "headache", "stiff neck", "floating pulse", "fever"],
-    "Yang Ming (6 Stages)": ["big fever|high fever", "big sweat|profuse sweating", "big thirst", "big pulse|flooding pulse|surging pulse", "constipation", "abdominal pain"],
-    "Tai Yin (6 Stages)": ["abdominal fullness", "diarrhea", "vomiting", "no thirst", "pale tongue", "weak pulse"],
-    "Shao Yin (6 Stages)": ["extreme fatigue", "desire to sleep", "cold limbs", "faint pulse", "diarrhea with undigested food"],
-    "Jue Yin (6 Stages)": ["hunger without desire to eat", "surging qi to heart", "pain in heart", "vomiting roundworms", "cold limbs"],
-    "Wei Level (4 Levels)": ["fever", "slight chills", "sore throat", "cough", "headache", "floating rapid pulse"],
-    "Qi Level (4 Levels)": ["high fever", "intense thirst", "sweating", "red tongue with yellow coat", "forceful pulse"],
-    "Ying Level (4 Levels)": ["fever worse at night", "restlessness", "delirium", "crimson tongue", "faint skin rashes"],
-    "Xue Level (4 Levels)": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"],
-    "Upper Jiao": ["fever", "aversion to cold", "headache", "sore throat", "floating rapid pulse"],
-    "Middle Jiao": ["high fever", "abdominal fullness", "constipation|hard stool", "yellow tongue coating"],
-    "Lower Jiao": ["low grade fever", "night sweats", "five center heat", "dry mouth", "deep crimson tongue"],
-    "Seven Emotional Factors": ["joy", "fear", "sadness", "anger", "worry", "fright", "grief"],
-    "Six Exogenous Factors": ["wind", "cold", "fire", "dryness", "damp", "summer heat"]
+const quizCategories = {
+    "Six Stages (Liu Jing)": {
+        "Tai Yang": ["aversion to cold", "headache", "stiff neck", "floating pulse", "fever"],
+        "Shao Yang": ["bitter taste|bitter mouth", "dry throat", "blurry vision|blurred vision", "alternating chills and fever", "fullness in chest|chest distension", "irritability", "nausea", "wiry pulse"],
+        "Yang Ming": ["big fever|high fever", "big sweat|profuse sweating", "big thirst", "big pulse|flooding pulse|surging pulse", "constipation", "abdominal pain"],
+        "Tai Yin": ["abdominal fullness", "diarrhea", "vomiting", "no thirst", "pale tongue", "weak pulse"],
+        "Shao Yin": ["extreme fatigue", "desire to sleep", "cold limbs", "faint pulse", "diarrhea with undigested food"],
+        "Jue Yin": ["hunger without desire to eat", "surging qi to heart", "pain in heart", "vomiting roundworms", "cold limbs"]
+    },
+    "Four Levels (Wei Qi Ying Xue)": {
+        "Wei Level": ["fever", "slight chills", "sore throat", "cough", "headache", "floating rapid pulse"],
+        "Qi Level": ["high fever", "intense thirst", "sweating", "red tongue with yellow coat", "forceful pulse"],
+        "Ying Level": ["fever worse at night", "restlessness", "delirium", "crimson tongue", "faint skin rashes"],
+        "Xue Level": ["bleeding", "severe delirium", "dark purple rash", "convulsions", "deep crimson tongue"]
+    },
+    "San Jiao Patterns": {
+        "Upper Jiao": ["fever", "aversion to cold", "headache", "sore throat", "floating rapid pulse"],
+        "Middle Jiao": ["high fever", "abdominal fullness", "constipation|hard stool", "yellow tongue coating"],
+        "Lower Jiao": ["low grade fever", "night sweats", "five center heat", "dry mouth", "deep crimson tongue"]
+    },
+    "Fundamentals": {
+        "Seven Emotions": ["joy", "fear", "sadness", "anger", "worry", "fright", "grief"],
+        "Six Exogenous Factors": ["wind", "cold", "heat", "dryness", "damp", "summer heat"]
+    }
 };
-
 
 let currentAnswers = [];
 let score = 0;
 let isGameOver = false;
 
-// Create menu
+// THIS PART BUILDS YOUR MENU AUTOMATICALLY
 const menuDiv = document.getElementById('quiz-buttons');
-Object.keys(quizzes).forEach(name => {
-    const btn = document.createElement('button');
-    btn.innerText = name;
-    btn.onclick = () => startQuiz(name);
-    menuDiv.appendChild(btn);
+
+Object.keys(quizCategories).forEach(category => {
+    // Add a Category Header
+    const header = document.createElement('h3');
+    header.innerText = category;
+    header.style.width = "100%";
+    header.style.marginTop = "25px";
+    header.style.color = "#444";
+    header.style.borderBottom = "2px solid #eee";
+    header.style.textAlign = "left";
+    menuDiv.appendChild(header);
+
+    // Get quizzes in this category and sort them alphabetically
+    const quizNames = Object.keys(quizCategories[category]).sort();
+
+    quizNames.forEach(name => {
+        const btn = document.createElement('button');
+        btn.innerText = name;
+        btn.onclick = () => {
+            currentAnswers = quizCategories[category][name];
+            startQuiz(name);
+        };
+        menuDiv.appendChild(btn);
+    });
 });
 
 function showMenu() {
@@ -41,12 +67,10 @@ function startQuiz(name) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('current-quiz-title').innerText = name;
     
-    // Reset message
     const msg = document.getElementById('message-display');
     msg.innerText = "";
     msg.className = "";
 
-    currentAnswers = quizzes[name];
     score = 0;
     updateScore();
     
